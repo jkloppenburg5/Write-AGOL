@@ -30,9 +30,18 @@
 
   <!-- Adding required modules for a full screen map app. -->
   <script>  
-  require(["esri/config", "esri/Map", "esri/views/MapView"], function(esriConfig, Map, MapView) {
+  require([
+    "esri/config", 
+    "esri/Map", 
+    "esri/views/MapView",
+    "esri/widgets/BasemapGallery",
+    "esri/portal/PortalItem"
+  ], function(esriConfig, Map, MapView, BasemapGallery, PortalItem) {
+    
+    // Log into the API
     esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurC-WNby9xVB5CaUbYmSkdtsZmMyGnfH1JuHkPFwFFSBd3Z-v-N7m_s6f1dmRgKVLamcFHqSo0cttTR09tKsFzmbXZUhJIfKzl2R6HLQtKWGyGlzHobrqUHrwEOtLR9miyCr3AH4LGIs4bD8J_IfjNZJFYZiID06JxdIjFa_CX5wLcu2d2_5Pr2huNg7-z1mKuSnOsU5nBktIt9t_XxG-4s-ytgy_1uafScxdrTypBn4BAT1_UUjVT5i4";
   
+    // Create the map
     const map = new Map({
       // basemap: "arcgis-hillshade-dark" // Basemap layer service
       basemap: "arcgis-colored-pencil" // Basemap layer service
@@ -42,7 +51,7 @@
 
     // Try one of these: "arcgis-imagery", "arcgis-imagery-standard", "arcgis-imagery-labels", "arcgis-light-gray", "arcgis-dark-gray", "arcgis-navigation", "arcgis-navigation-night", "arcgis-streets", "arcgis-streets-night", "arcgis-streets-relief", "arcgis-topographic", "arcgis-oceans", "osm-standard", "osm-standard-relief", "osm-streets", "osm-streets-relief", "osm-light-gray", "osm-dark-gray", "arcgis-terrain", "arcgis-community", "arcgis-charted-territory", "arcgis-colored-pencil", "arcgis-nova", "arcgis-modern-antique", "arcgis-midcentury", "arcgis-newspaper", "arcgis-hillshade-light", "arcgis-hillshade-dark", "arcgis-human-geography", "arcgis-human-geography-dark"
 
-
+    // Create the View
     const view = new MapView({
       map: map,
       center: [-91.101, 46.8536], // Longitude, latitude
@@ -50,6 +59,16 @@
       // scale: 24000, // Scale 1:24,000
       container: "viewDiv" // Div element
     });
+
+    // Create the BasemapGallery widget
+    const basemapGallery = new BasemapGallery({
+      view: view, // Map view for the widget
+      container: document.createElement("div") // Create a div to hold the widget
+    });
+
+    // Add the BasemapGallery widget to the top-right corner of the view
+    view.ui.add(basemapGallery, "bottom-right");
+
   });  
   </script>
 
