@@ -51,8 +51,10 @@
     "esri/portal/PortalItem",
     "esri/widgets/Locate",
     "esri/widgets/Search",
-    "esri/widgets/Expand"
-  ], function(esriConfig, Map, MapView, BasemapGallery, PortalItem, Locate, Search, Expand) {
+    "esri/widgets/Expand",
+    "esri/Graphic",  
+    "esri/layers/GraphicsLayer"  
+  ], function(esriConfig, Map, MapView, BasemapGallery, PortalItem, Locate, Search, Expand, Graphic, GraphicsLayer) {
     
     // Log into the API
     esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurC-WNby9xVB5CaUbYmSkdtsZmMyGnfH1JuHkPFwFFSBd3Z-v-N7m_s6f1dmRgKVLamcFHqSo0cttTR09tKsFzmbXZUhJIfKzl2R6HLQtKWGyGlzHobrqUHrwEOtLR9miyCr3AH4LGIs4bD8J_IfjNZJFYZiID06JxdIjFa_CX5wLcu2d2_5Pr2huNg7-z1mKuSnOsU5nBktIt9t_XxG-4s-ytgy_1uafScxdrTypBn4BAT1_UUjVT5i4";
@@ -75,6 +77,33 @@
       // scale: 24000, // Scale 1:24,000
       container: "viewDiv" // Div element
     });
+
+    // Adding the constructor for the Graphics Layer
+    const graphicsLayer = new GraphicsLayer();
+    map.add(graphicsLayer);
+
+    const point = {
+      type: "point",
+      longitude: -91.098541,
+      latitude: 46.859670
+    };
+
+    const simpleMarkerSymbol = {
+      type: "simple-marker",
+      style: "cross",
+      color: [255,255, 255],  // Color of blues rock
+      outline: {
+        color: [5,5,5],
+        width: 1
+      }
+    };
+
+    const pointGraphic = new Graphic({  
+      geometry: point,  
+      symbol: simpleMarkerSymbol  
+    });
+
+    graphicsLayer.add(pointGraphic);
 
     // Create the BasemapGallery widget
     const basemapGallery = new BasemapGallery({
