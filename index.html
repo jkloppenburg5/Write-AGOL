@@ -83,6 +83,9 @@
     const graphicsLayer = new GraphicsLayer();
     map.add(graphicsLayer);
 
+
+
+
     // Defining the geometry of the point
     const point = {
       type: "point",
@@ -111,10 +114,6 @@
       Description: "A public artesian well in a covered structure that flows 24-7."
     }
 
-
-
-
-
     // Creating the point
     const pointGraphic = new Graphic({  
       geometry: point,  
@@ -124,13 +123,45 @@
       popupTemplate: popupTemplate
     });
  
-
-
-
-
-
     // Adding the point to the graphicsLayer
     graphicsLayer.add(pointGraphic);
+
+
+    // Define the polyline geometry
+    const polyline = {
+      type: "polyline", // Polyline type
+      paths: [
+        [-91.168145, 46.841656], // Point 1 (Longitude, Latitude) 46.841656, -91.168145
+        [-91.169254, 46.842293], // Point 2 46.842293, -91.169254
+        [-91.169503, 46.842736], // Point 3 46.842736, -91.169503
+        [-91.169033, 46.84375],  // Point 4 46.843757, -91.169033
+        [-91.169422, 46.844245]  // Point 5 46.844245, -91.169422
+      ]
+    };
+
+    // Define the line symbol (for the polyline)
+    const simpleLineSymbol = {
+      type: "simple-line",  // Symbol type
+      color: [226, 119, 40],  // Line color (Orange)
+      width: 4  // Line width
+    };
+
+    // Define popup properties
+    const popupTemplatePoly = {
+      title: "Walking Path",
+      content: "This is a path for foot traffic only."
+    };
+
+    // Create the polyline graphic
+    const polylineGraphic = new Graphic({
+      geometry: polyline,
+      symbol: simpleLineSymbol,
+      popupTemplate: popupTemplatePoly  // Attach the popup to the graphic
+    });
+
+    // Add the polyline graphic to the graphicsLayer
+    graphicsLayer.add(polylineGraphic);
+
 
     // Create the BasemapGallery widget
     const basemapGallery = new BasemapGallery({
