@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Hello, Map! Test</title>
+  <title>Hello, Map!</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="description" content="" />
@@ -16,7 +16,21 @@
     margin: 0;  
     height: 100%;  
     width: 100%;  
-    }  
+    }
+
+  /* Basemap Gallery styles */
+  #viewDiv .esri-basemap-gallery {
+    width: 200px; /* Default width */
+    height: 200px; /* Default height */
+  }
+
+  /* Media query to make it responsive on mobile devices */
+  @media (max-width: 600px) {
+    #viewDiv .esri-basemap-gallery {
+      width: 150px; /* Smaller width for mobile */
+      height: 150px; /* Smaller height for mobile */
+    }
+  }
 
   </style> 
 
@@ -97,4 +111,4 @@
   </script>
 
 </body>
-</html>
+</html>>
