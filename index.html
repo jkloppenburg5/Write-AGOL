@@ -10,8 +10,6 @@
   <link rel="stylesheet" href="https://js.arcgis.com/4.25/esri/themes/light/main.css">
   <script src="https://js.arcgis.com/4.25/"></script>
 
- 
-
   <!-- CSS to make full screen map. -->
   <style>  html,  body,  #viewDiv {  
     padding: 0;  
@@ -52,7 +50,7 @@
       // basemap: "streets" // Basemap layer service
     });
 
-    // Try one of these: "arcgis-imagery", "arcgis-imagery-standard", "arcgis-imagery-labels", "arcgis-light-gray", "arcgis-dark-gray", "arcgis-navigation", "arcgis-navigation-night", "arcgis-streets", "arcgis-streets-night", "arcgis-streets-relief", "arcgis-topographic", "arcgis-oceans", "osm-standard", "osm-standard-relief", "osm-streets", "osm-streets-relief", "osm-light-gray", "osm-dark-gray", "arcgis-terrain", "arcgis-community", "arcgis-charted-territory", "arcgis-colored-pencil", "arcgis-nova", "arcgis-modern-antique", "arcgis-midcentury", "arcgis-newspaper", "arcgis-hillshade-light", "arcgis-hillshade-dark", "arcgis-human-geography", "arcgis-human-geography-dark"
+    // Try any of these: "arcgis-imagery", "arcgis-imagery-standard", "arcgis-imagery-labels", "arcgis-light-gray", "arcgis-dark-gray", "arcgis-navigation", "arcgis-navigation-night", "arcgis-streets", "arcgis-streets-night", "arcgis-streets-relief", "arcgis-topographic", "arcgis-oceans", "osm-standard", "osm-standard-relief", "osm-streets", "osm-streets-relief", "osm-light-gray", "osm-dark-gray", "arcgis-terrain", "arcgis-community", "arcgis-charted-territory", "arcgis-colored-pencil", "arcgis-nova", "arcgis-modern-antique", "arcgis-midcentury", "arcgis-newspaper", "arcgis-hillshade-light", "arcgis-hillshade-dark", "arcgis-human-geography", "arcgis-human-geography-dark"
 
     // Create the View
     const view = new MapView({
@@ -79,7 +77,7 @@
     });
 
     // Add the Locate widget to the top-right corner of the view
-    view.ui.add(locateWidget, "top-left"); // You can change the position (e.g., "top-right")
+    view.ui.add(locateWidget, "top-left"); 
 
     // Create the Search widget with proper configuration
     const searchWidget = new Search({
