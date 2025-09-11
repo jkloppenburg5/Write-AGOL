@@ -19,6 +19,7 @@
     height: 100%;  
     width: 100%;  
     }  
+
   </style> 
 
 </head>
@@ -80,26 +81,22 @@
     // Add the Locate widget to the top-right corner of the view
     view.ui.add(locateWidget, "top-left"); // You can change the position (e.g., "top-right")
 
-    // Create the Search widget
+    // Create the Search widget with proper configuration
     const searchWidget = new Search({
-      view: view, // MapView instance
-      sources: [
-        {
-          locator: {
-            url: "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"
-          },
-          singleLineFieldName: "SingleLine",
-          outFields: ["PlaceName", "Place_addr"]
-        }
-      ]
+      view: view,
+      popupEnabled: true,
+      popupOpenOnSelect: false,
+      includeDefaultSources: true // This ensures default geocoding services are used
     });
 
-    // Add the search widget to the UI (position can be top-left, top-right, etc.)
-    view.ui.add(searchWidget, "lower-left");
-
+    // Add the Search widget to the top-right corner
+    view.ui.add(searchWidget, {
+      position: "top-right",
+      index: 0
+    });
+  
   });  
   </script>
-
 
 </body>
 </html>
