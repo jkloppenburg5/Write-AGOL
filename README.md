@@ -1,2 +1,2 @@
-# esrijs
-Lab 1: Frontend Development CSS/JS/HTML – Making a Web Map with ArcGIS JS
+# Lab-2-Read-AGOL
+Lab 2: ESRI JS Stack - Read AGOL
