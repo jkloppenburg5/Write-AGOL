@@ -82,12 +82,14 @@
     const graphicsLayer = new GraphicsLayer();
     map.add(graphicsLayer);
 
+    // Defining the geometry of the point
     const point = {
       type: "point",
       longitude: -91.098541,
       latitude: 46.859670
     };
 
+    // Defining the marker style
     const simpleMarkerSymbol = {
       type: "simple-marker",
       style: "cross",
@@ -98,11 +100,35 @@
       }
     };
 
+    // Defining popup properties
+    const popupTemplate = {
+      title: "{Name}",
+      content: "{Description}"
+    }  
+    const attributes = {
+      Name: "Cornucopia Artesian Well",
+      Description: "A public artesian well in a covered structure that flows 24-7."
+    }
+
+
+
+
+    
+    // Creating the point
     const pointGraphic = new Graphic({  
       geometry: point,  
-      symbol: simpleMarkerSymbol  
+      symbol: simpleMarkerSymbol  ,
+      // Adding popup properties
+      attributes: attributes,
+      popupTemplate: popupTemplate
     });
+ 
 
+
+
+
+
+    // Adding the point to the graphicsLayer
     graphicsLayer.add(pointGraphic);
 
     // Create the BasemapGallery widget
