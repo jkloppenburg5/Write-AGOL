@@ -41,7 +41,7 @@
   <!-- The div to display the map -->
   <div id="viewDiv"></div> 
 
-  <!-- Adding required modules for a full screen map app. -->
+  <!-- Adding required modules. -->
   <script>  
   require([
     "esri/config", 
@@ -55,10 +55,11 @@
     "esri/Graphic",  
     "esri/layers/GraphicsLayer",
     "esri/layers/FeatureLayer",
-    "esri/widgets/Editor"
-  ], function(esriConfig, Map, MapView, BasemapGallery, PortalItem, Locate, Search, Expand, Graphic, GraphicsLayer, FeatureLayer,Editor) {
+    "esri/widgets/Editor",
+    "esri/widgets/Legend"
+  ], function(esriConfig, Map, MapView, BasemapGallery, PortalItem, Locate, Search, Expand, Graphic, GraphicsLayer, FeatureLayer, Editor, Legend) {
     
-    // Log into the API
+    // Log into the API with a private key
     esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurC-WNby9xVB5CaUbYmSkdtsZmMyGnfH1JuHkPFwFFSBd3Z-v-N7m_s6f1dmRgKVLamcFHqSo0cttTR09tKsFzmbXZUhJIfKzl2R6HLQtKWGyGlzHobrqUHrwEOtLR9miyCr3AH4LGIs4bD8J_IfjNZJFYZiID06JxdIjFa_CX5wLcu2d2_5Pr2huNg7-z1mKuSnOsU5nBktIt9t_XxG-4s-ytgy_1uafScxdrTypBn4BAT1_UUjVT5i4";
   
     // Create the map
@@ -78,11 +79,11 @@
       zoom: 13, // Zoom level
       // scale: 24000, // Scale 1:24,000
       container: "viewDiv", // Div element
-      popupEnabled: true
+      popupEnabled: true  // Needed this for popups to work, for whatever reason.
     });
 
     // Adding the constructor for the Graphics Layer
-    const graphicsLayer = new GraphicsLayer();
+    const graphicsLayer = new GraphicsLayer();  // It’s a special layer in ArcGIS JS where you can draw your own graphics (points, lines, polygons, text, or images).
     map.add(graphicsLayer);
 
     // Defining the geometry of the point
@@ -96,7 +97,7 @@
     const simpleMarkerSymbol = {
       type: "simple-marker",
       style: "x",
-      color: [255,255, 255],  // Color of blues rock
+      color: [255,255, 255], 
       outline: {
         color: [5,5,5],
         width: 1
@@ -168,7 +169,7 @@
     }
 
     // Adding a constructor for a Cell Tower FeatureLayer
-    // https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/nationwide_efh_1/FeatureServer >> incorrect without the /0 at the end.
+    // https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/nationwide_efh_1/FeatureServer >> incorrect without the /0 at the end, not sure why.
     const cellTowerLayer = new FeatureLayer({
       url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Cellular_Towers_in_the_United_States_view/FeatureServer/0",
       //adding the popup here
@@ -176,13 +177,13 @@
       popupTemplate: popupCellTowers
     });
 
-    // Adding the FeatureLayer to the map. 
+    // Adding the cellTower FeatureLayer to the map. 
     map.add(cellTowerLayer);
 
     const airportRenderer = {
-      "type": "simple",
-      "symbol": {
-        "type": "picture-marker",
+      "type": "simple",  // All features in the layer share the same symbol.
+      "symbol": {        
+        "type": "picture-marker",  // Draws each feature as an image.
         "url": "https://raw.githubusercontent.com/jkloppenburg5/Read-AGOL/main/local_airport_24dp_000000.png",
         "width": "18px",
         "height": "18px"
@@ -195,7 +196,7 @@
         type: "text",
         color: "#AAAAAA",        // Black text
         // haloColor: "#AAAAAA",    // Grey halo
-        haloSize: "2px",
+        // haloSize: "2px",
         font: {
           size: "12px",
           family: "Arial", // "Noto Sans", "sans-serif",
@@ -209,7 +210,7 @@
       }
     };
 
-    // Adding a constructor for a airport FeatureLayer
+    // Adding a constructor for a Airport FeatureLayer
     // https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/nationwide_efh_1/FeatureServer >> incorrect without the /0 at the end.
     const airportLayer = new FeatureLayer({
       url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports_JK/FeatureServer/0",
@@ -221,9 +222,10 @@
       // popupTemplate: popupCellTowers
     });
 
-    // Adding the FeatureLayer to the map. 
+    // Adding the Airport FeatureLayer to the map. 
     map.add(airportLayer);
 
+    // Creating the image of the seaplane.
     const seaplane = {
       "type": "simple",
       "symbol": {
@@ -306,20 +308,16 @@
       index: 0
     });
   
-
-
-
-
-
-
-
+    // Creating the image for airports that I visited.
     const myAirports = {
       "type": "simple",
       "symbol": {
         "type": "picture-marker",
         "url": "https://raw.githubusercontent.com/jkloppenburg5/Write-AGOL/main/luggage_24dp_000000.png",
         "width": "24px",
-        "height": "24px"
+        "height": "24px",
+        xoffset: 16,  // Moves luggage right so it doesn't cover the airplane symbol.
+        yoffset: 0
         }
     }
   
@@ -332,7 +330,7 @@
         haloSize: "2px",
         font: {
           size: "12px",
-          family: "Arial", // "Noto Sans", "sans-serif",
+          family: "Arial",
           style: "normal",
           weight: "normal"
         }
@@ -343,27 +341,23 @@
       }
     };
 
-
-    //adding the const for the feature layer
+    //adding the const for the my Airport feature layer
     const myAirportsLayer = new FeatureLayer({
-    url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Airport_I_Visited/FeatureServer/0",
-    
-    //adding the popup here
-    outFields: ["AirportCode"],
-    
-    //adding labeling of myAirports
-    labelingInfo: [myAirportsLabels] // Add the labeling info here
+      url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Airport_I_Visited/FeatureServer/0",
+      //adding the popup here
+      outFields: ["AirportCode"],
+      // Adding labeling of myAirports
+      labelingInfo: [myAirportsLabels], // Add the labeling info here
+      renderer: myAirports,          // Apply the luggage icon renderer
     });
 
     //adding the feature layer to the map
     map.add(myAirportsLayer);
 
-    // Set the point layer's LayerInfo
+    // Set the point layer's LayerInfo  Editor widget tells the Editor which layer(s) can be edited, and with what settings.
     const pointInfos = {
       layer: myAirportsLayer
     }
-
-
 
     // Begin Editor constructor
     const editor = new Editor({
@@ -374,7 +368,24 @@
     // Add the widget to the view
     view.ui.add(editor, "top-right");
 
+    // Create the Legend widget
+    const legend = new Legend({
+      view: view,
+      style: "card",   // "classic" or "card"
+      layout: "auto",   // auto | stack | side-by-side (works with card style)
+      layerInfos: [
+        { layer: airportLayer, title: "Airports" },
+        { layer: seaplaneLayer, title: "Seaplane Bases" },
+        { layer: myAirportsLayer, title: "Airports I Visited" },
+        { layer: cellTowerLayer, title: "Cell Towers" }
+      ]
+    });
+
+    // Add it to the view
+    view.ui.add(legend, "bottom-left");
+
   });  
+
   </script>
 
 </body>
