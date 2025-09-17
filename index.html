@@ -307,8 +307,45 @@
     });
   
 
+
+
+
+
+
+
+    const myAirports = {
+      "type": "simple",
+      "symbol": {
+        "type": "picture-marker",
+        "url": "https://raw.githubusercontent.com/jkloppenburg5/Write-AGOL/main/luggage_24dp_000000.png",
+        "width": "24px",
+        "height": "24px"
+        }
+    }
+  
+    // myAirports labels
+    const myAirportsLabels = {
+      symbol: {
+        type: "text",
+        color: "#AAAAAA",        // Black text
+        // haloColor: "#AAAAAA",    // Grey halo
+        haloSize: "2px",
+        font: {
+          size: "12px",
+          family: "Arial", // "Noto Sans", "sans-serif",
+          style: "normal",
+          weight: "normal"
+        }
+      },
+      labelPlacement: "below-center",
+      labelExpressionInfo: {
+        expression: "$feature.AirportCode"
+      }
+    };
+
+
     //adding the const for the feature layer
-    const myAirports = new FeatureLayer({
+    const myAirportsLayer = new FeatureLayer({
     url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Airport_I_Visited/FeatureServer/0",
     
     //adding the popup here
@@ -317,11 +354,11 @@
     });
 
     //adding the feature layer to the map
-    map.add(myAirports);
+    map.add(myAirportsLayer);
 
     // Set the point layer's LayerInfo
     const pointInfos = {
-      layer: myAirports
+      layer: myAirportsLayer
     }
 
     // Begin Editor constructor
