@@ -84,9 +84,6 @@
     const graphicsLayer = new GraphicsLayer();
     map.add(graphicsLayer);
 
-
-
-
     // Defining the geometry of the point
     const point = {
       type: "point",
@@ -163,8 +160,6 @@
     // Add the polyline graphic to the graphicsLayer
     graphicsLayer.add(polylineGraphic);
 
-
-
     // Define a pop-up for cellTowerLayer
     const popupCellTowers = {
       "title": "Cell Towers",
@@ -187,18 +182,39 @@
       "type": "simple",
       "symbol": {
         "type": "picture-marker",
-        "url": "https://raw.githubusercontent.com/jkloppenburg5/Read-AGOL/main/local_airport_24dp_E3E3E3.png",
+        "url": "https://raw.githubusercontent.com/jkloppenburg5/Read-AGOL/main/local_airport_24dp_000000.png",
         "width": "18px",
         "height": "18px"
       }
     }
     
-    // Adding a constructor for a Cell Tower FeatureLayer
+    // Airport labels
+    const airportLabels = {
+      symbol: {
+        type: "text",
+        color: "#AAAAAA",        // Black text
+        // haloColor: "#AAAAAA",    // Grey halo
+        haloSize: "2px",
+        font: {
+          size: "12px",
+          family: "Arial", // "Noto Sans", "sans-serif",
+          style: "normal",
+          weight: "normal"
+        }
+      },
+      labelPlacement: "above-center",
+      labelExpressionInfo: {
+        expression: "$feature.Fac_Name"
+      }
+    };
+
+    // Adding a constructor for a airport FeatureLayer
     // https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/nationwide_efh_1/FeatureServer >> incorrect without the /0 at the end.
     const airportLayer = new FeatureLayer({
       url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports_JK/FeatureServer/0",
       renderer: airportRenderer,
-      definitionExpression: "Fac_Type = 'AIRPORT'" //adding sql to filter for airports
+      definitionExpression: "Fac_Type = 'AIRPORT'", //adding sql to filter for airports
+      labelingInfo: [airportLabels] //adding the labels
       //adding the popup here
       // outFields: ["Licensee","Callsign","LocCounty"],
       // popupTemplate: popupCellTowers
@@ -207,26 +223,47 @@
     // Adding the FeatureLayer to the map. 
     map.add(airportLayer);
 
+    const seaplane = {
+      "type": "simple",
+      "symbol": {
+        "type": "picture-marker",
+        "url": "https://raw.githubusercontent.com/jkloppenburg5/Read-AGOL/main/seaplane.jpg",
+        "width": "18px",
+        "height": "18px"
+        }
+    }
+  
+    // Seaplane labels
+    const seaplaneLabels = {
+      symbol: {
+        type: "text",
+        color: "#AAAAAA",        // Black text
+        // haloColor: "#AAAAAA",    // Grey halo
+        haloSize: "2px",
+        font: {
+          size: "12px",
+          family: "Arial", // "Noto Sans", "sans-serif",
+          style: "normal",
+          weight: "normal"
+        }
+      },
+      labelPlacement: "above-center",
+      labelExpressionInfo: {
+        expression: "$feature.Fac_Name"
+      }
+    };
 
+    // Seaplane Base FeatureLayer
+    const seaplaneLayer = new FeatureLayer({
+      url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports_JK/FeatureServer/0",
+      renderer: seaplane,
+      definitionExpression: "Fac_Type = 'SEAPLANE BASE'", // Filter only seaplane bases
+      labelingInfo: [seaplaneLabels],
+      outFields: ["Fac_Name"] // optional: fields for popup or labels
+    });
 
-    // // Adding a constructor for a NFS Roads FeatureLayer
-    // // National Forest System Roads layer
-    // const nfsRoadsLayer = new FeatureLayer({
-    //   url: "https://services.arcgis.com/8df8p0NlLFEShl0r/arcgis/rest/services/NFS_Roads/FeatureServer/0",
-    //   outFields: ["*"],
-    //   title: "NFS Roads",
-    //   popupTemplate: {
-    //     title: "Road: {RDNAME}",
-    //     content: `
-    //       <b>Maint. Level:</b> {MAINT_LEVEL}<br>
-    //       <b>Surface:</b> {SURFACE_TY}<br>
-    //       <b>Jurisdiction:</b> {JURISDIC}
-    //     `
-    //   }
-    // });
-
-    // map.add(nfsRoadsLayer);
-
+    // Add the seaplane layer to the map
+    map.add(seaplaneLayer);
 
     // Create the BasemapGallery widget
     const basemapGallery = new BasemapGallery({
@@ -244,9 +281,6 @@
 
     // Add the BasemapGallery Expand widget to the bottom-right of the view
     view.ui.add(basemapGalleryExpand, "bottom-right");
-
-    // // Add the BasemapGallery widget to the top-right corner of the view
-    // view.ui.add(basemapGallery, "bottom-right");
 
     // Create the Locate widget
     const locateWidget = new Locate({
