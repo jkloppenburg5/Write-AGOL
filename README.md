@@ -1,6 +1,11 @@
-# Lab-2-Read-AGOL
-Lab 2: ESRI JS Stack - Read AGOL
+# Lab-3-Write-AGOL
+Lab 3: ESRI JS Stack - Write AGOL
 
-Objective: To create a web map application based on Esri JS, version control with GitHub, and deploy to GitHub Pages that are able to read from ArcGIS Online.
+This lab will take you through the process of creating a JavaScript only GeoSpatial full stack with ArcGIS Online and ESRI JS. By the end of the lab, you will have acquired the knowledge and skills needed to build a fully functional front end that reads and writes to an AGOL database on the backend. In this lab, you will be going more in-depth with the REST API.
 
-You are about to learn how to take your existing frontend website built using Esri JS from Lab 1 (Lab 1: Frontend Development CSS/JS/HTML – Making a Web Map with ArcGIS JS) and connect it to a backend based on REST and ArcGIS Online. ArcGIS Online is an easy-to-use web-based GIS data repository that provides access to a rich set of hosted datasets you can use in your web mapping applications. In this lab, you'll learn how to use the Esri JS API to connect to and access these datasets hosted on AGOL. By the end of the lab, you'll have a better understanding of how to use the Esri JS API to access data hosted on AGOL. You'll also be able to create your own web mapping applications that use the AGOL datasets. So let's get started!
+Once completed you will have an essential website that can read/write/edit layers.  Be sure to have completed the following challenges to clean up the UI.
+
+Challenge 1 - Change the symbol for your myAirport layer to an icon.  (10 points)
+Challenge 2 - Add a label to your myAirport showing the Airport code. (10 points)
+Challenge 3 - Review this widget - https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Legend.htmlLinks to an external site.. Add a legend to your map.  (20 points)
+After complete please clean up your code, comment on it, and review your UI for any other changes. 
