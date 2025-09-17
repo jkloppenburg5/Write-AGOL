@@ -350,7 +350,9 @@
     
     //adding the popup here
     outFields: ["AirportCode"],
-
+    
+    //adding labeling of myAirports
+    labelingInfo: [myAirportsLabels] // Add the labeling info here
     });
 
     //adding the feature layer to the map
@@ -360,6 +362,8 @@
     const pointInfos = {
       layer: myAirportsLayer
     }
+
+
 
     // Begin Editor constructor
     const editor = new Editor({
