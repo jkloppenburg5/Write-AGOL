@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Hello, AGOL! Test</title>
+  <title>Hello, AGOL!</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="description" content="" />
@@ -165,7 +165,7 @@
 
 
 
-    // Define a pop-up for usaeduLayer
+    // Define a pop-up for cellTowerLayer
     const popupCellTowers = {
       "title": "Cell Towers",
       "content": "<b>Licensee:</b> {Licensee}<br><b>Tower Call Sign:</b> {Callsign}<br><b>County:</b> {LocCounty}<br>"
@@ -188,7 +188,6 @@
       "symbol": {
         "type": "picture-marker",
         "url": "https://raw.githubusercontent.com/jkloppenburg5/Read-AGOL/main/local_airport_24dp_E3E3E3.png",
-                https://github.com/jkloppenburg5/Read-AGOL/blob/main/local_airport_24dp_E3E3E3.png
         "width": "18px",
         "height": "18px"
       }
@@ -198,7 +197,8 @@
     // https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/nationwide_efh_1/FeatureServer >> incorrect without the /0 at the end.
     const airportLayer = new FeatureLayer({
       url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports_JK/FeatureServer/0",
-      renderer: airportRenderer
+      renderer: airportRenderer,
+      definitionExpression: "Fac_Type = 'AIRPORT'" //adding sql to filter for airports
       //adding the popup here
       // outFields: ["Licensee","Callsign","LocCounty"],
       // popupTemplate: popupCellTowers
